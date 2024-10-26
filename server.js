@@ -6,10 +6,10 @@ const app = express();
 const PORT = 3000;
 const dataDirectory = path.join(__dirname, "data");
 
-// Middleware to parse JSON bodies
+// middleware to parse JSON bodies
 app.use(express.json());
 
-// making sure that data directory exists
+// make sure data directory exists
 if (!fs.existsSync(dataDirectory)) {
   fs.mkdirSync(dataDirectory);
   console.log("Data directory created");
@@ -19,10 +19,9 @@ if (!fs.existsSync(dataDirectory)) {
 app.get("/", (req, res) => {
   fs.readdir(dataDirectory, (err, files) => {
     if (err) {
-      return res.status(500).send("Error reading data directory");
-    } else {
-      res.status(200).json(files);
+      return res.status(500).json({ error: "Error reading data directory" });
     }
+    res.status(200).json(files);
   });
 });
 
@@ -31,18 +30,26 @@ app.post("/", (req, res) => {
   const { filename, content } = req.body;
 
   if (!filename || !content) {
-    return res.status(400).send("File name and content are required");
+    return res
+      .status(400)
+      .json({ error: "File name and content are required" });
   }
 
   const filePath = path.join(dataDirectory, filename);
 
-  // write file fucntion to create a new file if it does not exist, and overwrite it if it does
-  fs.writeFile(filePath, content, (err) => {
-    if (err) {
-      return res.status(500).send("Error creating the file");
-    } else {
-      res.status(201).send("File created successfully");
+  // Check if file already exists to avoid overwriting
+  fs.access(filePath, fs.constants.F_OK, (err) => {
+    if (!err) {
+      // 409 Conflict status code indicates that the request could not be completed
+      return res.status(409).json({ error: "File already exists" });
     }
+
+    fs.writeFile(filePath, content, (err) => {
+      if (err) {
+        return res.status(500).json({ error: "Error creating the file" });
+      }
+      res.status(201).json({ message: "File created successfully" });
+    });
   });
 });
 
@@ -51,21 +58,16 @@ app.get("/files/:filename", (req, res) => {
   const filename = req.params.filename;
   const filePath = path.join(dataDirectory, filename);
 
-  // read file function to read the content of the file
+  // read the file content
   fs.readFile(filePath, "utf-8", (err, data) => {
     if (err) {
+      // error when we can't find the file
       if (err.code === "ENOENT") {
-        // file does not exist
-        return res
-          .status(404)
-          .json({ error: "File not found", path: filePath });
-      } else {
-        // handle other potential errors
-        return res.status(500).json({ error: "Error reading file" });
+        return res.status(404).json({ error: "File not found" });
       }
+      // for ther errors like permission issues
+      return res.status(500).json({ error: "Error reading file" });
     }
-
-    // if no error, send the file content as JSON
     res.status(200).json({ content: data });
   });
 });
@@ -78,13 +80,12 @@ app.put("/files/:filename", (req, res) => {
   const newFilePath = path.join(dataDirectory, newFilename);
 
   if (!newFilename) {
-    return res.status(400).send("New file name is required to rename the file");
+    return res.status(400).json({ error: "New file name is required" });
   }
 
-  // check if the file exists before renaming using F_OK flag of fs.access
+  // check if the file exists before renaming
   fs.access(oldFilePath, fs.constants.F_OK, (err) => {
     if (err) {
-      // File does not exist
       return res.status(404).json({ error: "File not found" });
     }
 
@@ -92,7 +93,7 @@ app.put("/files/:filename", (req, res) => {
       if (err) {
         return res.status(500).json({ error: "Error renaming the file" });
       }
-      res.status(200).send("File renamed successfully");
+      res.status(200).json({ message: "File renamed successfully" });
     });
   });
 });
@@ -102,23 +103,23 @@ app.delete("/files/:filename", (req, res) => {
   const filename = req.params.filename;
   const filePath = path.join(dataDirectory, filename);
 
-  // check if the file exists before deleting using F_OK flag of fs.access
+  // check if the file exists before deleting
   fs.access(filePath, fs.constants.F_OK, (err) => {
     if (err) {
-      // File does not exist
       return res.status(404).json({ error: "File not found" });
     }
 
+    // delete the file
     fs.unlink(filePath, (err) => {
       if (err) {
         return res.status(500).json({ error: "Error deleting the file" });
       }
-      res.status(200).send("File deleted successfully");
+      res.status(200).json({ message: "File deleted successfully" });
     });
   });
 });
 
-// Make the server listen on port 3000
+// making the server listen on port 3000
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
