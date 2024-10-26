@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Details - <%= filename %></title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <h1>File Details</h1>
+    </header>
+
+    <main>
+        <h2><%= filename %></h2>
+        <pre><%= content %></pre> <!-- Display the file content in a preformatted block -->
+        
+        <div>
+            <a href="/">Back to File List</a> <!-- Link back to the main file list -->
+            <a href="/create" class="button">Create New File</a> <!-- Link to create a new file -->
+            <!-- Form to delete the file -->
+            <form action="/files/<%= filename %>?_method=DELETE" method="POST" style="display:inline;">
+                <button type="submit">Delete File</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
