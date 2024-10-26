@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
     if (err) {
       return res.status(500).send("Error reading data directory");
     } else {
-      res.json(files);
+      res.status(200).json(files);
     }
   });
 });
@@ -36,6 +36,7 @@ app.post("/", (req, res) => {
 
   const filePath = path.join(dataDirectory, filename);
 
+  // write file fucntion to create a new file if it does not exist, and overwrite it if it does
   fs.writeFile(filePath, content, (err) => {
     if (err) {
       return res.status(500).send("Error creating the file");
@@ -43,6 +44,39 @@ app.post("/", (req, res) => {
       res.status(201).send("File created successfully");
     }
   });
+});
+
+
+// 3. GET /files/:filename: returns the content of the file with the specified name
+app.get("/files/:filename", (req, res) => {
+  const filename = req.params.filename;
+  const filePath = path.join(dataDirectory, filename);
+
+  // read file function to read the content of the file
+  fs.readFile(filePath, "utf-8", (err, data) => {
+    if (err) {
+      if (err.code === "ENOENT") {
+        // file does not exist
+        return res.status(404).json({ error: "File not found", path: filePath });
+      } else {
+        // handle other potential errors
+        return res.status(500).json({ error: "Error reading file" });
+      }
+    }
+
+    // if no error, send the file content as JSON
+    res.status(200).json({ content: data });
+  });
+});
+
+
+
+
+
+
+
+
+
 });
 
 // Make the server listen on port 3000
