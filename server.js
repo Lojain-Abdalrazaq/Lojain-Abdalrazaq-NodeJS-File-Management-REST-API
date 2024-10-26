@@ -20,6 +20,7 @@ if (!fs.existsSync(dataDirectory)) {
   console.log("Data directory created");
 }
 
+// GET endpoint to list all files
 app.get("/", (req, res) => {
   fs.readdir(dataDirectory, (err, files) => {
     if (err) return res.status(500).send("Error reading data directory");
@@ -33,6 +34,7 @@ app.get("/create", (req, res) => {
   res.render("create");
 });
 
+// POST endpoint to create a new file
 app.post("/create", (req, res) => {
   const { filename, content } = req.body;
   const filePath = path.join(dataDirectory, filename);
@@ -44,6 +46,7 @@ app.post("/create", (req, res) => {
   });
 });
 
+// GET endpoint to read file content
 app.get("/files/:filename", (req, res) => {
   const filename = req.params.filename;
   const filePath = path.join(dataDirectory, filename);
