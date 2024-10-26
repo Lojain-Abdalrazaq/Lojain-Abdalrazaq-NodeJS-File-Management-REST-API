@@ -46,7 +46,6 @@ app.post("/", (req, res) => {
   });
 });
 
-
 // 3. GET /files/:filename: returns the content of the file with the specified name
 app.get("/files/:filename", (req, res) => {
   const filename = req.params.filename;
@@ -57,7 +56,9 @@ app.get("/files/:filename", (req, res) => {
     if (err) {
       if (err.code === "ENOENT") {
         // file does not exist
-        return res.status(404).json({ error: "File not found", path: filePath });
+        return res
+          .status(404)
+          .json({ error: "File not found", path: filePath });
       } else {
         // handle other potential errors
         return res.status(500).json({ error: "Error reading file" });
@@ -69,14 +70,52 @@ app.get("/files/:filename", (req, res) => {
   });
 });
 
+// 4. PUT /files/:filename: rename an existing file with the specified name
+app.put("/files/:filename", (req, res) => {
+  const oldFilename = req.params.filename;
+  const { newFilename } = req.body;
+  const oldFilePath = path.join(dataDirectory, oldFilename);
+  const newFilePath = path.join(dataDirectory, newFilename);
 
+  if (!newFilename) {
+    return res.status(400).send("New file name is required to rename the file");
+  }
 
+  // check if the file exists before renaming using F_OK flag of fs.access
+  fs.access(oldFilePath, fs.constants.F_OK, (err) => {
+    if (err) {
+      // File does not exist
+      return res.status(404).json({ error: "File not found" });
+    }
 
+    fs.rename(oldFilePath, newFilePath, (err) => {
+      if (err) {
+        return res.status(500).json({ error: "Error renaming the file" });
+      }
+      res.status(200).send("File renamed successfully");
+    });
+  });
+});
 
+// 5. DELETE /files/:filename: delete the file with the specified name
+app.delete("/files/:filename", (req, res) => {
+  const filename = req.params.filename;
+  const filePath = path.join(dataDirectory, filename);
 
+  // check if the file exists before deleting using F_OK flag of fs.access
+  fs.access(filePath, fs.constants.F_OK, (err) => {
+    if (err) {
+      // File does not exist
+      return res.status(404).json({ error: "File not found" });
+    }
 
-
-
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        return res.status(500).json({ error: "Error deleting the file" });
+      }
+      res.status(200).send("File deleted successfully");
+    });
+  });
 });
 
 // Make the server listen on port 3000
