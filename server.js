@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 // setting up EJS as the templating engine in an Express application and setting the views directory
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+app.use(express.static("public"));
 
 // make sure data directory exists
 if (!fs.existsSync(dataDirectory)) {

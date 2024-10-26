@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>File Manager</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>File Manager</h1>
+    </header>
+
+    <main>
+      <div id="file-list">
+        <h2>Available Files</h2>
+        <ul>
+          <% if (files.length > 0) { %> <% files.forEach(file => { %>
+          <li>
+            <a href="/files/<%= file %>"><%= file %></a>
+          </li>
+          <% }) %> <% } else { %>
+          <p>No files available.</p>
+          <% } %>
+        </ul>
+      </div>
+
+      <div id="create-file">
+        <a href="/create" class="button">Create New File</a>
+      </div>
+    </main>
+  </body>
+</html>
