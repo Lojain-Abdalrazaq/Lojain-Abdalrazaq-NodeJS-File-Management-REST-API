@@ -91,3 +91,9 @@ app.delete("/files/:filename", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+// MVC
+// Middlewares
+// routing -> implemetation of the endpoints
+// controller -> fucntions 
+// error 
