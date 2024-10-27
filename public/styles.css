@@ -1,3 +1,12 @@
-h1 {
-  color: red;
+body {
+  font-family: 'Nunito Sans', sans-serif;
+  background-color: #F0F9FF;
 }
+.title-index-page {
+  font-size: medium;
+  font-weight: bold;
+  color: #DC143C;
+  text-align: center;
+  margin: 20px;
+}
+
