@@ -3,12 +3,6 @@ const path = require("path");
 
 const dataDirectory = path.join(__dirname, "../data");
 
-// make sure data directory exists
-if (!fs.existsSync(dataDirectory)) {
-    fs.mkdirSync(dataDirectory);
-    console.log("Data directory created");
-}
-
 // listing all files in the data directory
 const listFiles = (req, res) => {
     fs.readdir(dataDirectory, (err, files) => {
