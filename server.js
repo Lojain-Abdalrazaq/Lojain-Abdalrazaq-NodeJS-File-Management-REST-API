@@ -5,7 +5,7 @@ const methodOverride = require('method-override');
 
 const app = express();
 const PORT = 3000;
-const dataDirectory = path.join(__dirname, "data");
+// const dataDirectory = path.join(__dirname, "data");
 
 // middleware to parse JSON bodies and URL encoded bodies
 app.use(express.json());
@@ -18,27 +18,22 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static("public"));
 
-// make sure data directory exists
-if (!fs.existsSync(dataDirectory)) {
-  fs.mkdirSync(dataDirectory);
-  console.log("Data directory created");
-}
 
 // GET endpoint to list all files
-app.get("/", (req, res) => {
+/* app.get("/", (req, res) => {
   fs.readdir(dataDirectory, (err, files) => {
     if (err) return res.status(500).send("Error reading data directory");
 
     // render the index.ejs template and pass the list of files
     res.render("index", { files });
   });
-});
+}); */
 
-app.get("/create", (req, res) => {
+/* app.get("/create", (req, res) => {
   res.render("create");
-});
+}); */
 
-// POST endpoint to create a new file
+/* // POST endpoint to create a new file
 app.post("/create", (req, res) => {
   const { filename, content } = req.body;
   const filePath = path.join(dataDirectory, filename);
@@ -48,9 +43,9 @@ app.post("/create", (req, res) => {
     if (err) return res.status(500).send("Error creating the file");
     res.redirect("/");
   });
-});
+}); */
 
-// GET endpoint to read file content
+/* // GET endpoint to read file content
 app.get("/files/:filename", (req, res) => {
   const filename = req.params.filename;
   const filePath = path.join(dataDirectory, filename);
@@ -60,9 +55,9 @@ app.get("/files/:filename", (req, res) => {
     if (err) return res.status(500).send("Error reading file");
     res.render("detail", { filename, content: data });
   });
-});
+}); */
 
-// PUT endpoint
+/* // PUT endpoint
 app.put("/files/:filename", (req, res) => {
   const oldFilename = req.params.filename;
   const { newFilename } = req.body;
@@ -74,9 +69,9 @@ app.put("/files/:filename", (req, res) => {
     if (err) return res.status(500).send("Error renaming the file");
     res.redirect("/"); // Redirect to the index page after renaming
   });
-});
+}); */
 
-// DELETE File endpoint
+/* // DELETE File endpoint
 app.delete("/files/:filename", (req, res) => {
   const filename = req.params.filename;
   const filePath = path.join(dataDirectory, filename);
@@ -85,7 +80,7 @@ app.delete("/files/:filename", (req, res) => {
     if (err) return res.status(500).send("Error deleting the file");
     res.redirect("/"); // Redirect to the index page after deletion
   });
-});
+}); */
 
 // making the server listen on port 3000
 app.listen(PORT, () => {
