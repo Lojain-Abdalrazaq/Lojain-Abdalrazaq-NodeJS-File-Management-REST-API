@@ -2,6 +2,8 @@ const express = require("express");
 const path = require("path");
 const methodOverride = require("method-override");
 const fileRouter = require("./routes/fileRoutes");
+const logger = require("./middleware/middlewareLogger");
+
 
 const app = express();
 const PORT = 3000;
@@ -9,6 +11,7 @@ const PORT = 3000;
 // middlewares to parse JSON bodies, URL encoded bodies, and method override
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(logger); 
 app.use(methodOverride('_method'));
 
 // setting up the tempalte engine
