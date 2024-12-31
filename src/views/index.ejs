@@ -23,21 +23,26 @@
       <!-- Display the list of files -->
       <div class="list-files-all">
         <p>Available Files</p>
-        <ul>
-          <% if (files.length > 0) { %> <% files.forEach(file => { %>
-          <li>
-            <a href="/files/<%= file %>"><%= file %></a>
-          </li>
-          <% }) %> <% } else { %>
+        <% if (files.length > 0) { %>
+          <table class="file-table">
+            <tbody>
+              <% files.forEach(file => { %>
+                <tr>
+                  <td><a href="/files/<%= file %>"><%= file %></a></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        <% } else { %>
           <p>No Files Available For Listing</p>
-          <% } %>
-        </ul>
+        <% } %>
       </div>
 
       <!-- Create a new file -->
-      <div id="create File">
-        <a href="/create" class="button">Create New File</a>
+      <div id="create-File-button">
+        <button href="/create" class="button">Create New File</button>
       </div>
+
     </main>
   </body>
 </html>

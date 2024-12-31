@@ -1,12 +1,72 @@
 body {
   font-family: 'Nunito Sans', sans-serif;
-  background-color: #d3b3ba;
+  background-color: #fff6eb;
 }
 .title-index-page {
-  font-size: medium;
+  font-size: large;
   font-weight: bold;
-  color: #DC143C;
+  color: #2f44ea;
   text-align: center;
-  margin: 20px;
+  margin: 50px;
 }
 
+.list-files-all {
+  width: 80%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 2px solid #2f44ea;
+  border-radius: 10px;
+  background-color: #ffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.list-files-all p {
+  font-size: 1.5rem;
+  color: #2f44ea;
+  text-align: center;
+}
+
+.file-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.file-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.file-table td {
+  background-color: #f9f9f9;
+}
+
+.file-table a {
+  color: #2f44ea;
+  font-weight: bold;
+}
+
+.file-table td:hover {
+  background-color: #aeb6f0; /* Change this to any color you prefer */
+  color: #f9f9f9;
+}
+
+#create-File-button {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#create-File-button .button {
+  padding: 10px 20px;
+  border: 2px solid #2f44ea;
+  color: #2f44ea;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+#create-File-button .button:hover {
+  background-color: #2f44ea;
+  color: #f9f9f9;
+}
