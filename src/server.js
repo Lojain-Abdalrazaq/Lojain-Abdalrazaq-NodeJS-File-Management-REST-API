@@ -17,7 +17,7 @@ app.use(methodOverride('_method'));
 // setting up the tempalte engine
 app.set("view engine", "ejs");                   // specifies the template engine that the server will use to render dynamic HTML views -> ejs
 app.set("views", path.join(__dirname, "views")); // specifies the directory where the template engine (EJS) will look for view files
-app.use(express.static("public"));               // Serves static files (like CSS, JavaScript, images, etc.) from the public directory
+app.use(express.static(__dirname + '/public'));               // Serves static files (like CSS, JavaScript, images, etc.) from the public directory
 
 // adding the file router
 app.use("/", fileRouter);
