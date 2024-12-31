@@ -1,0 +1,112 @@
+/* General body styling */
+body {
+    font-family: 'Nunito Sans', sans-serif;
+    background-color: #fff6eb;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Header styling */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    color: #2f44ea;
+    font-size: 2rem;
+    margin: 0;
+}
+
+/* Main container styling */
+main {
+    background-color: #ffffff;
+    padding: 20px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+}
+
+/* File name and content display */
+h2 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    word-wrap: break-word;
+}
+
+pre {
+    background-color: #f4f4f4;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Form styling */
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+input[type="text"] {
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #2f44ea;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #1d2b99;
+}
+
+/* Delete button */
+form[action*="DELETE"] button {
+    background-color: #e53935;
+}
+
+form[action*="DELETE"] button:hover {
+    background-color: #c62828;
+}
+
+/* Back to file list link styling */
+a {
+    display: inline-block;
+    margin-top: 15px;
+    text-decoration: none;
+    color: #2f44ea;
+    font-size: 0.9rem;
+}
+
+a:hover {
+    text-decoration: underline;
+}

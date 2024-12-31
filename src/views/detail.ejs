@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>File Details</title>
-  <link rel="stylesheet" href="/styles.css" />
+    <link href="/details.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
   <header>
@@ -18,7 +18,7 @@
     <!-- Form for updating the file name using PUT method -->
     <form action="/files/<%= filename %>?_method=PUT" method="POST">
       <label for="newFilename">New File Name:</label>
-      <input type="text" id="newFilename" name="newFilename" required />
+      <input type="text" id="newFilename" name="newFilename" required/>
       <button type="submit">Update File Name</button>
     </form>
 

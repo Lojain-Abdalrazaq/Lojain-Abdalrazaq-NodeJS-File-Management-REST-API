@@ -49,24 +49,34 @@ body {
 }
 
 .file-table td:hover {
-  background-color: #aeb6f0; /* Change this to any color you prefer */
+  background-color: #aeb6f0;
   color: #f9f9f9;
 }
 
-#create-File-button {
-  text-align: center;
-  margin-top: 20px;
-}
-
-#create-File-button .button {
-  padding: 10px 20px;
-  border: 2px solid #2f44ea;
-  color: #2f44ea;
-  border-radius: 5px;
+#no-files{
+  color: #ea2f58;
+  font-size: 1.2rem;
   font-weight: bold;
 }
 
-#create-File-button .button:hover {
+form[action="/create"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+form[action="/create"] button {
+  padding: 10px 20px;
+  border: 2px solid #2f44ea;
+  color: #2f44ea;
+  background-color: #fff;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+form[action="/create"] button:hover {
   background-color: #2f44ea;
-  color: #f9f9f9;
+  color: #fff;
 }

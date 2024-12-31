@@ -34,14 +34,14 @@
             </tbody>
           </table>
         <% } else { %>
-          <p>No Files Available For Listing</p>
+          <p id="no-files">No Files Available For Listing</p>
         <% } %>
       </div>
-
-      <!-- Create a new file -->
-      <div id="create-File-button">
-        <button href="/create" class="button">Create New File</button>
-      </div>
+      
+      <!-- Form for deleting the file -->
+    <form action="/create" method="GET">
+      <button type="submit">Create File</button>
+    </form>
 
     </main>
   </body>
