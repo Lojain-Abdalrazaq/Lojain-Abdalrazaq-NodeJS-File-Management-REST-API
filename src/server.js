@@ -1,8 +1,8 @@
 const express = require("express");
 const path = require("path");
+const logger = require("./middleware/middlewareLogger");
 const methodOverride = require("method-override");
 const fileRouter = require("./routes/fileRoutes");
-const logger = require("./middleware/middlewareLogger");
 
 
 const app = express();
@@ -15,11 +15,11 @@ app.use(logger);
 app.use(methodOverride('_method'));
 
 // setting up the tempalte engine
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-app.use(express.static("public"));
+app.set("view engine", "ejs");                   // specifies the template engine that the server will use to render dynamic HTML views -> ejs
+app.set("views", path.join(__dirname, "views")); // specifies the directory where the template engine (EJS) will look for view files
+app.use(express.static("public"));               // Serves static files (like CSS, JavaScript, images, etc.) from the public directory
 
-// using the file router
+// adding the file router
 app.use("/", fileRouter);
 
 // making the server listen on port 3000
